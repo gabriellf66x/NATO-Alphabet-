@@ -3,26 +3,19 @@ import pandas
 # "".csv already a dataframe ""
 data = pandas.read_csv("nato_phonetic_alphabet.csv")
 
+
 # Loop through rows of a data frame
 
-text = input("Type any word to convert to NATO: ")
-my_list = list(text)
-
-pain = [row.code for i in my_list for (index, row) in data.iterrows() if row.letter == i]
-
-print(pain)
-
-
-
-
-
-
+def generate_phonetic():
+    text = input("Type any word to convert to NATO: ").upper()
+    try:
+        phonetic_dict = {row.letter: row.code for (index, row) in data.iterrows()}
+        output_list = [phonetic_dict[letter] for letter in text]
+    except KeyError:
+        print("Enter a valid letter.")
+        generate_phonetic()
+    else:
+        print(output_list)
 
 
-
-
-
-
-
-
-
+generate_phonetic()
